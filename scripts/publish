@@ -2,8 +2,8 @@
 
 set -eux
 
-for cli in pgcli mycli litecli mssql-cli; do
-  version=$(docker run --rm -it testcab/$cli --version | cut -d\  -f2 | tr -d '\r')
+for cli in pgcli mycli litecli mssql-cli iredis; do
+  version=$(docker run --rm -it testcab/$cli --version | grep -Po '[\d.]+')
   docker tag testcab/$cli testcab/$cli:$version
   docker push testcab/$cli
   docker push testcab/$cli:$version
