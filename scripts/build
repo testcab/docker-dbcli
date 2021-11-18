@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eux
+
+cd "$(dirname "$0")"/..
+
+for cli in pgcli mycli litecli mssql-cli; do
+  echo \"$cli\" \
+  | npx mustache - Dockerfile.template \
+  | docker build - -t testcab/$cli
+done
